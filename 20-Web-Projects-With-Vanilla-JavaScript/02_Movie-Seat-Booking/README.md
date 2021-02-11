@@ -1,3 +1,5 @@
+![02_Movie-Seat-Booking](https://user-images.githubusercontent.com/44192757/107616439-6fff6b80-6c91-11eb-99fa-c4510ddd09bc.gif)
+
 ## Movie Seat Booking
 
 Display movie choices and seats in a theater to select from in order to purchase tickets
