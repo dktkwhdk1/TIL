@@ -6,8 +6,10 @@ const password2 = document.getElementById('password2');
 
 // Show input error message
 function showError(input, message) {
+  // 위에서 가져온 username의 부모 태그를 가져온다. 즉, form-control
   const formControl = input.parentElement;
   formControl.className = 'form-control error';
+
   const small = formControl.querySelector('small');
   small.innerText = message;
 }
@@ -20,7 +22,8 @@ function showSuccess(input) {
 
 // Check email is valid
 function checkEmail(input) {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   if (re.test(input.value.trim())) {
     showSuccess(input);
   } else {
@@ -28,9 +31,14 @@ function checkEmail(input) {
   }
 }
 
+// Get fieldname
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
 // Check required fields
 function checkRequired(inputArr) {
-  inputArr.forEach(function(input) {
+  inputArr.forEach(function (input) {
     if (input.value.trim() === '') {
       showError(input, `${getFieldName(input)} is required`);
     } else {
@@ -56,25 +64,19 @@ function checkLength(input, min, max) {
   }
 }
 
-// Check passwords match
-function checkPasswordsMatch(input1, input2) {
+function checkPasswordMatch(input1, input2) {
   if (input1.value !== input2.value) {
     showError(input2, 'Passwords do not match');
   }
 }
 
-// Get fieldname
-function getFieldName(input) {
-  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
-}
-
 // Event listeners
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   checkRequired([username, email, password, password2]);
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
   checkEmail(email);
-  checkPasswordsMatch(password, password2);
+  checkPasswordMatch(password, password2);
 });
