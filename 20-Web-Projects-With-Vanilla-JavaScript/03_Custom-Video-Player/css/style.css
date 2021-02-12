@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Questrial', sans-serif;
+  background-color: #666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  color: #fff;
+}
+
+.screen {
+  cursor: pointer;
+  width: 60%;
+  background-color: #000 !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* 버튼 2개, 프로그레스 바, 시간 표시 포함한 긴 div태그 */
+.controls {
+  background: #333;
+  color: #fff;
+  width: 60%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.controls .btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls .fa-play {
+  color: #36b454;
+}
+.controls .fa-stop {
+  color: #cc6bbc;
+}
+.controls .fa-pause {
+  color: #fff;
+}
+
+.controls .timestamp {
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+/* So now it's pretty much a responsive video player. */
+@media (max-width: 800px) {
+  .screen,
+  .controls {
+    width: 90%;
+  }
+}
