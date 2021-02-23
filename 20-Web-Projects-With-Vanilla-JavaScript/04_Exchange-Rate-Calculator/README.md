@@ -1,3 +1,5 @@
+![04_Exchange-Rate-Calculator](https://user-images.githubusercontent.com/44192757/108798468-356eca80-75d1-11eb-815e-11451320cac0.gif)
+
 ## Exchange Rate
 
 Select countries to get the exchange rate for a specific amount

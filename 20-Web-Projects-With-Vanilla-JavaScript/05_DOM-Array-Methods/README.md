@@ -1,3 +1,5 @@
+![05_DOM-Array-Methods](https://user-images.githubusercontent.com/44192757/108798471-37388e00-75d1-11eb-8a75-fffb461980f1.gif)
+
 ## DOM Array Methods
 
 Project to teach high order array methods and DOM manipulation
