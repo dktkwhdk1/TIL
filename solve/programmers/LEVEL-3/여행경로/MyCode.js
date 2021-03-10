@@ -3,14 +3,14 @@ function solution(tickets) {
   const visit = Array(tickets.length).fill(false);
   tickets.sort();
 
-  function dfs(cur, ticket, answer, visit, use) {
+  function dfs(cur, use) {
     answer.push(cur);
-    if (use === ticket.length) return true;
+    if (use === tickets.length) return true;
 
-    for (let i = 0; i < ticket.length; i++) {
-      if (ticket[i][0] === cur && !visit[i]) {
+    for (let i = 0; i < tickets.length; i++) {
+      if (tickets[i][0] === cur && !visit[i]) {
         visit[i] = true;
-        if (dfs(ticket[i][1], ticket, answer, visit, use + 1)) return true;
+        if (dfs(tickets[i][1], use + 1)) return true;
         visit[i] = false;
       }
     }
@@ -18,7 +18,7 @@ function solution(tickets) {
     return false;
   }
 
-  dfs('ICN', tickets, answer, visit, 0);
+  dfs('ICN', 0);
   return answer;
 }
 
