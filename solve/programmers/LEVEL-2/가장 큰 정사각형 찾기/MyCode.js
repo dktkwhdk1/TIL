@@ -1,26 +1,16 @@
 function solution(board) {
-  function isPossible(len) {
-    for (let i = 0; i <= board.length - len; i++) {
-      for (let j = 0; j <= board[0].length - len; j++) {
-        let flag = true;
-        for (let r = i; r < i + len; r++) {
-          for (let c = j; c < j + len; c++) {
-            if (!board[r][c]) {
-              flag = false;
-              break;
-            }
-          }
-          if (!flag) break;
-        }
-        if (flag) return true;
+  let answer = board[0][0];
+
+  for (let i = 1; i < board.length; i++) {
+    for (let j = 1; j < board[0].length; j++) {
+      if (board[i][j]) {
+        board[i][j] =
+          1 + Math.min(board[i - 1][j - 1], board[i - 1][j], board[i][j - 1]);
+        answer = Math.max(answer, board[i][j]);
       }
     }
   }
-
-  const max = board.length < board[0].length ? board.length : board[0].length;
-  for (let i = max; i >= 1; i--) {
-    if (isPossible(i)) return i * i;
-  }
+  return answer * answer;
 }
 
 console.log(
@@ -31,3 +21,5 @@ console.log(
     [0, 0, 1, 0],
   ])
 ); // 9
+// https://donggoolosori.github.io/2020/12/20/pgmsquare/
+// https://programmers.co.kr/learn/courses/30/lessons/12905
