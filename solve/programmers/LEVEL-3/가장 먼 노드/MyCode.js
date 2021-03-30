@@ -1,26 +1,26 @@
 const solution = (n, edge) => {
   const graph = makeGraph(edge);
 
-  const answer = Array(n + 1).fill(0),
-    check = Array(n + 1).fill(false);
-  const queue = [1];
-  check[1] = true;
+  const answer = Array(n + 1).fill(0), // 1번 노드로부터의 거리를 담을 배열
+    check = Array(n + 1).fill(false); // 노드 방문 처리를 위한 배열
+  const queue = [1]; // 시작 노드(1번)
+  check[1] = true; // 1번은 방문했다고 하고 시작
 
+  // BFS
   while (queue.length) {
     const current = queue.shift();
 
-    if (!graph[current]) continue;
-    for (const next of graph[current]) {
-      if (next === current || check[next]) continue;
+    graph[current].forEach(next => {
+      if (check[next]) return; // 이미 방문했는지 check
 
       queue.push(next);
       check[next] = true;
       answer[next] = answer[current] + 1;
-    }
+    });
   }
 
-  let max = Math.max(...answer);
-  return answer.filter(item => item === max).length;
+  let max = Math.max(...answer); // 최대 거리를 찾고
+  return answer.filter(item => item === max).length; // 그 최댓값을 가지는 요소만 남긴 배열의 길이를 리턴
 };
 
 // 입력받은 edge 정보를 바탕으로 graph를 만들어 리턴하는 함수
@@ -30,10 +30,11 @@ const makeGraph = edge => {
     if (!acc[from]) acc[from] = [];
     if (!acc[to]) acc[to] = [];
 
+    // 양방향 그래프이므로 양쪽 노드 모두 간선을 만들어준다.
     acc[from].push(to);
     acc[to].push(from);
     return acc;
-  }, {});
+  }, {}); // '{}'를 '[]'로 바꾸면 배열로도 구현이 가능하다.
 };
 
 console.log(
@@ -47,69 +48,3 @@ console.log(
     [5, 2],
   ])
 ); // 3
-// https://programmers.co.kr/learn/courses/30/lessons/49189
-
-// [
-//   [0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0],
-// ];
-
-// [
-//   [1, 0, 0, 0, 0, 0, 0],
-//   [0, 1, 1, 1, 0, 0, 0],
-//   [0, 1, 1, 1, 1, 1, 0],
-//   [0, 1, 1, 1, 1, 0, 1],
-//   [0, 0, 1, 1, 1, 0, 0],
-//   [0, 0, 1, 0, 0, 1, 0],
-//   [0, 0, 0, 1, 0, 0, 1],
-// ];
-
-/* 리팩토링 전 정답 코드 */
-function solution3(n, edge) {
-  const graph = [];
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      if (!graph[i]) graph[i] = [];
-      if (i === j) graph[i][j] = 1;
-      else graph[i][j] = 0;
-    }
-  }
-  console.log(graph);
-  for (let i = 0; i < edge.length; i++) {
-    if (!graph[edge[i][0]]) graph[edge[i][0]] = [];
-    if (!graph[edge[i][1]]) graph[edge[i][1]] = [];
-    graph[edge[i][0]].push(edge[i][1]);
-    graph[edge[i][1]].push(edge[i][0]);
-  }
-
-  const check = Array(n + 1).fill(false),
-    result = Array(n + 1).fill(0);
-  const queue = [1];
-  check[1] = true;
-
-  while (queue.length) {
-    const current = queue.shift();
-
-    if (!graph[current]) continue;
-    for (let i = 0; i < graph[current].length; i++) {
-      const next = graph[current][i];
-      if (next === current || check[next]) continue;
-
-      check[next] = true;
-      queue.push(next);
-      result[next] = result[current] + 1;
-    }
-  }
-
-  let answer = 0;
-  let max = Math.max(...result);
-  for (const item of result) {
-    if (max === item) answer += 1;
-  }
-  return answer;
-}
