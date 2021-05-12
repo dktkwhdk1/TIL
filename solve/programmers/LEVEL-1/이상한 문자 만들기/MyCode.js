@@ -1,16 +1,15 @@
 function solution(s) {
-  const words = s.split(' ');
-  return words
-    .map(word => {
-      let result = '';
-      for (let i = 0; i < word.length; i++) {
-        if (i % 2) result += word[i].toLowerCase();
-        else result += word[i].toUpperCase();
-      }
-      console.log(result);
-      return result;
-    })
+  return s
+    .split(' ')
+    .map(word => makeStrangeWord(word))
     .join(' ');
+}
+
+function makeStrangeWord(s) {
+  return s
+    .split('')
+    .map((ele, idx) => (idx % 2 ? ele.toLowerCase() : ele.toUpperCase()))
+    .join('');
 }
 
 console.log(solution('try hello world')); // TrY HeLlO WoRlD
